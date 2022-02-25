@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 return function(League\Route\Router $router, League\Container\Container $container) {
 
-    $router->get('/movimentos/{id}/rank', function (ServerRequestInterface $request, array $args) use ($container): ResponseInterface {
+    $router->get('/movements/{id}/rank', function (ServerRequestInterface $request, array $args) use ($container): ResponseInterface {
         try {
             $queryParams = $request->getQueryParams();
 
