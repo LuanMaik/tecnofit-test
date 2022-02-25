@@ -47,7 +47,7 @@ class RankUsersByMovementQuery
      */
     public function __construct(int $movementId, int $page = 1, int $pageSize = 10)
     {
-        if(empty($movementId) or $movementId < 0) {
+        if($movementId < 1) {
             throw new InvalidArgumentException("The movementId it's required");
         }
 

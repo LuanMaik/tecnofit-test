@@ -16,6 +16,9 @@ class Movement implements \JsonSerializable
      */
     public function __construct(?int $id, string $name)
     {
+        if(strlen(trim($name)) === 0) {
+            throw new \InvalidArgumentException("The movement name can not be empty");
+        }
         $this->id = $id;
         $this->name = $name;
     }

@@ -2,6 +2,9 @@
     "name": "luanmaik/tecnofit-test",
     "type": "project",
     "minimum-stability": "stable",
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    },
     "require": {
         "ext-pdo": "*",
         "league/route": "5.1.2",
@@ -16,7 +19,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Test\\": "test/"
+            "Test\\": "tests/"
         }
     },
     "require-dev": {

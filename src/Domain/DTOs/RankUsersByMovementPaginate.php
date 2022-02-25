@@ -23,6 +23,18 @@ class RankUsersByMovementPaginate implements \JsonSerializable
      */
     public function __construct(Movement $movement, array $rank, int $currentPage, int $pageSize, ?int $nextPage = null)
     {
+        if($currentPage === $nextPage) {
+            throw new \InvalidArgumentException("The nextPage can not be equals currentPage");
+        }
+
+        if($nextPage !== null and $nextPage < $currentPage) {
+            throw new \InvalidArgumentException("The nextPage when informed, must be greater than currentPage");
+        }
+
+        if(count($rank) > $pageSize) {
+            throw new \InvalidArgumentException("The rank array count can not be greater than pageSize");
+        }
+
         $this->movement = $movement;
         $this->rank = $rank;
         $this->currentPage = $currentPage;
