@@ -19,9 +19,9 @@ interface MovementRepositoryInterface
 
     /**
      * @param int $movementId
-     * @param int $page starts from 0 (zero)
+     * @param int $page starts from 1
      * @param int $pageSize
      * @return RankUsersByMovementPaginate
      */
-    public function getRankUsersByMovementId(int $movementId, int $page = 0, int $pageSize = 10): RankUsersByMovementPaginate;
+    public function getRankUsersByMovementId(int $movementId, int $page = 1, int $pageSize = 10): RankUsersByMovementPaginate;
 }

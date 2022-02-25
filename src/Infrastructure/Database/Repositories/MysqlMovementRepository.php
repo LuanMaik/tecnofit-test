@@ -15,28 +15,28 @@ class MysqlMovementRepository implements MovementRepositoryInterface
 
     public function getById(int $movementId): Movement
     {
-        $stmt = Database::getConnection()->query('SELECT * FROM movement WHERE id = :id;');
+        $stmt = Database::getConnection()->prepare('SELECT * FROM movement WHERE id = :id;');
         $stmt->bindValue(':id', $movementId, PDO::PARAM_INT);
         $stmt->execute();
 
-        $movement = $stmt->fetchObject( Movement::class);
+        $data = $stmt->fetch();
 
-        if($movement === false) {
+        if($data === false) {
             throw new MovementNotFoundException();
         }
 
-        return $movement;
+        return Movement::fromArray($data);
     }
 
     /**
      * @throws MovementNotFoundException
      */
-    public function getRankUsersByMovementId(int $movementId, int $page = 0, int $pageSize = 10): RankUsersByMovementPaginate
+    public function getRankUsersByMovementId(int $movementId, int $page = 1, int $pageSize = 10): RankUsersByMovementPaginate
     {
         // get movement data
         $movement = $this->getById($movementId);
 
-        $offsetPagination = ($page === 0) ? 0 : ($page - 1) * $pageSize + 1;
+        $offsetPagination = ($page === 1) ? 0 : ($page - 1) * $pageSize;
 
         /**
          * Define a new page size, to check if exist next page in pagination
@@ -60,7 +60,7 @@ class MysqlMovementRepository implements MovementRepositoryInterface
         /**
          * @var UserRank[]
          */
-        $usersRank = $stmt->fetchAll(PDO::FETCH_CLASS, UserRank::class);
+        $data = $stmt->fetchAll();
 
         $hasNextPage = false;
 
@@ -68,9 +68,17 @@ class MysqlMovementRepository implements MovementRepositoryInterface
          * Check if the total records found its equal page size + 1,
          * and remove the last element, retrieved just to check if exist next page
          */
-        if(count($usersRank) === $pageSizeCheckNext) {
-            array_pop($usersRank);
+        if(count($data) === $pageSizeCheckNext) {
+            array_pop($data);
             $hasNextPage = true;
+        }
+
+        /**
+         * Convert data array to object
+         */
+        $usersRank = [];
+        foreach ($data as $userRank) {
+            $usersRank[] = new UserRank($userRank['user_id'], $userRank['user_name'], $userRank['date'], $userRank['record'], $userRank['rank']);
         }
 
         return new RankUsersByMovementPaginate(

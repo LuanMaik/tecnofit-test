@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCases\Movement;
 
+use App\Domain\DTOs\RankUsersByMovementPaginate;
 use App\Domain\Repositories\MovementRepositoryInterface;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 class RankUsersByMovementHandler
 {
@@ -24,7 +25,10 @@ class RankUsersByMovementHandler
      */
     public function handler(RankUsersByMovementQuery $query): RankUsersByMovementPaginate
     {
-        return [];
+        return $this->movementRepository->getRankUsersByMovementId(
+            $query->getMovementId(),
+            $query->getPage(),
+            $query->getPageSize());
     }
 }
 
@@ -41,14 +45,18 @@ class RankUsersByMovementQuery
      * @param int $page
      * @param int $pageSize
      */
-    public function __construct(int $movementId, int $page = 0, int $pageSize = 10)
+    public function __construct(int $movementId, int $page = 1, int $pageSize = 10)
     {
         if(empty($movementId) or $movementId < 0) {
             throw new InvalidArgumentException("The movementId it's required");
         }
 
-        if($page < 0) {
-            throw new InvalidArgumentException("The page number can not be negative");
+        if($page < 1) {
+            throw new InvalidArgumentException("The page number must be greater than 0");
+        }
+
+        if($pageSize < 1) {
+            throw new InvalidArgumentException("The page size number must be greater than 0");
         }
 
         $this->movementId = $movementId;

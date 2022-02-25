@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Entities;
 
+use JetBrains\PhpStorm\Pure;
+
 class Movement implements \JsonSerializable
 {
     private ?int $id;
@@ -32,6 +34,11 @@ class Movement implements \JsonSerializable
     public function getName(): string
     {
         return $this->name;
+    }
+
+    #[Pure]
+    public static function fromArray(array $data) {
+        return new Movement($data['id'], $data['name']);
     }
 
     #[\ReturnTypeWillChange]
