@@ -3,11 +3,9 @@
 namespace Tests\Unit\Domain\UseCases\Movement;
 
 use App\Domain\DTOs\RankUsersByMovementPaginate;
-use App\Domain\DTOs\UserRank;
-use App\Domain\Entities\Movement;
+use App\Domain\Exceptions\MovementNotFoundException;
 use App\Domain\Repositories\MovementRepositoryInterface;
 use App\Domain\UseCases\Movement\RankUsersByMovementHandler;
-use App\Domain\UseCases\Movement\RankUsersByMovementQuery;
 use PHPUnit\Framework\TestCase;
 
 require __DIR__ . '/../../../../utils/factories.php';
@@ -33,5 +31,19 @@ class RankUsersByMovementHandlerTest extends TestCase
         $this->assertEquals($repositoryResponse->getNextPage(), $response->getNextPage());
         $this->assertEquals($repositoryResponse->getPageSize(), $response->getPageSize());
         $this->assertEquals($repositoryResponse->jsonSerialize(), $response->jsonSerialize());
+    }
+
+    public function test_should_throw_exception_movement_not_found()
+    {
+        // Given
+        $mockRepository = $this->createMock(MovementRepositoryInterface::class);
+        $mockRepository->method('getRankUsersByMovementId')->willThrowException(new MovementNotFoundException);
+        $rankUsersByMovementHandler = new RankUsersByMovementHandler($mockRepository);
+
+        // Expected
+        $this->expectException(MovementNotFoundException::class);
+
+        // When
+        $rankUsersByMovementHandler->handler(createValidRankUsersByMovementQuery());
     }
 }
