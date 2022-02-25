@@ -11,17 +11,17 @@ interface MovementRepositoryInterface
 {
     /**
      * Return a movement
-     * @param int $idMovement
-     * @return Movement|bool
+     * @param int $movementId
+     * @return Movement
      * @throws MovementNotFoundException
      */
-    public function getById(int $idMovement): Movement|bool;
+    public function getById(int $movementId): Movement;
 
     /**
-     * @param int $idMovement
+     * @param int $movementId
      * @param int $page starts from 0 (zero)
      * @param int $pageSize
      * @return RankUsersByMovementPaginate
      */
-    public function getRankUsersByMovementId(int $idMovement, int $page = 0, int $pageSize = 10): RankUsersByMovementPaginate;
+    public function getRankUsersByMovementId(int $movementId, int $page = 0, int $pageSize = 10): RankUsersByMovementPaginate;
 }

@@ -16,7 +16,7 @@ class RankUsersByMovementPaginate implements \JsonSerializable
 
     /**
      * @param Movement $movement
-     * @param array $rank
+     * @param UserRank[] $rank
      * @param int $currentPage
      * @param int $pageSize
      * @param int|null $nextPage
