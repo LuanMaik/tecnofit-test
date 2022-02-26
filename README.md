@@ -41,11 +41,10 @@ A execução do comando acima também irá gerar o relatório de cobertura de te
 
 ## Consumir a API
 
-Por padrão, a API estará disponível no endereço `http://localhost:8080` 
+Por padrão, a API estará disponível no endereço `http://localhost:8080`. 
 
-Todas as respostas utilizam o `Content-Type: application/json` 
+Todas as respostas utilizam o formato json: `Content-Type: application/json` 
 
-### PADRÃO:
 Recursos não existentes resultarão em resposta com `status code` 404 e mensagem no padrão:
 
 ```json
