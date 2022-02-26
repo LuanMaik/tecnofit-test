@@ -26,7 +26,7 @@ jobs:
         run: docker-compose up -d
 
       - name: Install PHP dependencies
-        run: docker-compose exec composer install
+        run: docker exec -it apitecnofit composer install
         shell: bash
 
       - name: Sleep for 15 seconds
@@ -37,7 +37,7 @@ jobs:
         run: docker ps -a
 
       - name: Run test suite
-        run: docker-compose exec api composer test
+        run: docker exec -it apitecnofit composer test
         shell: bash
 
       - name: Build the Docker image
