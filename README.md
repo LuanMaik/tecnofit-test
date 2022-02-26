@@ -1,4 +1,5 @@
-# Rank Users API 
+# Rank Users API
+![CI-Status](https://github.com/LuanMaik/tecnofit-test/actions/workflows/docker-image.yml/badge.svg)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)&nbsp;
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=flat&logo=php&logoColor=white)&nbsp;
 ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=flat&logo=mysql&logoColor=white)&nbsp;
