@@ -39,7 +39,7 @@ jobs:
         run: docker-compose exec -T api composer test
 
       - name: Build the Docker image
-        run: docker build --file docker/prod/Dockerfile --tag luanmaik/tecnofit-test:${{ GITHUB_REF_NAME }} .
+        run: docker build --file docker/prod/Dockerfile --tag luanmaik/tecnofit-test:latest .
 
       - name: Docker Push
         run: docker push luanmaik/tecnofit-test
