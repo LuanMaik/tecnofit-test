@@ -1,8 +1,20 @@
 version: '3.7'
 
 services:
+  apiprod:
+    image: tecnofit:latest
+    ports:
+      - "8181:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_USER: api
+      DB_PASS: 123456
+      DB_NAME: tecnofit
   api:
     build:
+      dockerfile: docker/dev/Dockerfile
       context: .
     ports:
       - "8080:80"

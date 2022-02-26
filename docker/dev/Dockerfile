@@ -1,7 +1,10 @@
 FROM php:8-apache
 
-# Define production mode by default
-ENV MODE PROD
+ENV MODE DEV
+
+# Define default mode argument to 'local' when not provided in the --build-arg
+ARG COMMIT=LOCAL
+
 ENV XDEBUG_MODE=coverage
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public

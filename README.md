@@ -24,20 +24,13 @@
 [Docker Compose](https://docs.docker.com/compose/install/)
 instalado no computador.
 
-No terminal, execute o comando `docker-compose up -d`
+No terminal, execute os comandos:
+- `docker-compose up -d` para subir a api e o banco de dados.
+- `docker-compose exec api composer install` para instalar as dependências da aplicação.
+
+#### Obs: Aguarde alguns segundos até que o banco de dados esteja disponível. 
 
 ---
-
-## Como executar os testes
-
-De modo a facilitar e garantir que haja as dependências necessárias, é indicado que os testes sejam executados via docker.
-
-No terminal, execute o comando `docker-compose exec api composer test`
-
-A execução do comando acima também irá gerar o relatório de cobertura de teste na pasta `tests/test-coverage-report`.
-
----
-
 
 ## Consumir a API
 
@@ -101,19 +94,49 @@ Exemplo resposta:
     "nextPage": null
 }
 ```
+
 ---
+
+## Variáveis de ambiente
+`MODE` define o modo de execução da aplicação, sendo os valores possíveis: `DEV`, `PROD` ou `TEST`.
+
+`DB_HOST` define o host de conexão com o banco de dados.
+
+`DB_USER` define o nome do usuário da conexão com o banco de dados.
+
+`DB_PASS` define a senha do usuário da conexão com o banco de dados.
+
+`DB_NAME` define o nome do schema da conexão com o banco de dados.
+
+---
+
+## Como executar os testes
+
+De modo a facilitar e garantir que haja as dependências necessárias, é indicado que os testes sejam executados via docker.
+
+No terminal, execute o comando `docker-compose exec api composer test`
+
+A execução do comando acima também irá gerar o relatório de cobertura de teste na pasta `tests/test-coverage-report`.
+
+---
+
 
 # CONSIDERAÇÕES
 
 ## Arquitetura do projeto:
-Eu não optei por utilizar nenhum framework, pois entendo que desta forma eu consigo demonstrar que conheço os princípios necessário para a criação de uma aplicação. Eu utilizei uma biblioteca de rota e outra de container de dependências para montar um Micro Framework, acreditando que assim eu poderia demonstrar que meu conhecimento não se limita a apenas frameworks famosos.
+Eu optei por não utilizar um framework, pois entendo que desta forma eu consigo demonstrar que conheço os princípios necessário para a criação de uma aplicação. 
+
+Para a criação da API, eu utilizei 2 bibliotecas como base, uma de rota para fazer o roteamento das requisições e outra de container de dependências para conseguir realizar inversão de dependências de forma limpa, desta forma foi possível montar um Micro Framework próprio, acreditando que assim eu poderia demonstrar que o meu conhecimento não se limita a apenas o uso de frameworks populares.
+
+A estrutura das pastas foi baseado em estruturas populares quando aplicado Clean Architecture.
 
 ## Dificuldades encontradas
-Embora eu tenha criado vários testes _end-to-end_, eu não consegui adicioná-los no relatório de cobertura de testes, sendo possível apenas para os testes unitário e de integração. 
-Nos grandes frameworks como o Laravel e Symfony é possível realizar essa cobertura de testes através dos testes de endpoint da API, porém por debaixo dos panos não é realizado uma requisição http de verdade, assim como também ocorre em testes end-to-end com `supertest` em nodeJs.
+Embora eu tenha criado vários testes _end-to-end_, eu não consegui adicionar no relatório de cobertura de testes, sendo possível apenas para os testes unitário e de integração. 
+
+Nos frameworks populares como o Laravel e Symfony é possível realizar essa cobertura de testes através dos testes de endpoint da API, porém por debaixo dos panos não é realizado uma requisição http de verdade, utilizando meios mais avançados do framework para identificar a cobertura.
 
 ## Resolução do problema principal:
-A resolução é baseada nas funções `Rank`, disponível a partir do Mysql 8.
+A resolução é baseada nas funções [`Rank`](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html), disponíveis a partir do Mysql 8.
 
 Eu decidi utilizar essa funcionalidade do Mysql 8 por eu entender como sendo a melhor escolha, uma vez que desta forma é possível criar paginação da lista do rank.
 
