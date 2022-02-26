@@ -1,0 +1,42 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build the docker-compose stack
+        run: docker-compose up -d
+
+      - name: Sleep for 15 seconds
+        run: sleep 15s
+        shell: bash
+
+      - name: Check running containers
+        run: docker ps -a
+
+      - name: Run test suite
+        run: docker-compose exec api composer test
+
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build the Docker image
+        run: docker build . --file docker/prod/Dockerfile --tag luanmaik/tecnofit-test:${{ github.head_ref }}-${{ github.sha }}
+
+      - name: Docker Push
+        run: docker push luanmaik/tecnofit-test
