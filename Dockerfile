@@ -16,4 +16,3 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
-RUN echo "xdebug.mode=coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

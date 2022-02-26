@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\UseCases\Movement;
+namespace Test\Unit\Domain\UseCases\Movement;
 
 use App\Domain\DTOs\RankUsersByMovementPaginate;
 use App\Domain\Exceptions\MovementNotFoundException;

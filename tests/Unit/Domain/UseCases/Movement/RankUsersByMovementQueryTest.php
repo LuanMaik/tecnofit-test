@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\UseCases\Movement;
+namespace Test\Unit\Domain\UseCases\Movement;
 
 use App\Domain\UseCases\Movement\RankUsersByMovementQuery;
 use PHPUnit\Framework\TestCase;

@@ -25,3 +25,14 @@ services:
       MYSQL_PASSWORD: 123456
     volumes:
       - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+
+  dbtest:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password --sql-mode=""
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tecnofit
+      MYSQL_USER: api
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql

@@ -14,7 +14,7 @@ return function(League\Route\Router $router, League\Container\Container $contain
         try {
             $queryParams = $request->getQueryParams();
 
-            $page = $queryParams['page'] ?? 0;
+            $page = $queryParams['page'] ?? 1;
             $pageSize = $queryParams['pageSize'] ?? 10;
 
             $handler = $container->get(RankUsersByMovementHandler::class);
@@ -22,7 +22,7 @@ return function(League\Route\Router $router, League\Container\Container $contain
             $rank = $handler->handler($query);
             return ApiResponse::success($rank);
         } catch (MovementNotFoundException | InvalidArgumentException $ex) {
-            return ApiResponse::badRequest($ex->getMessage());
+            return ApiResponse::notFound($ex->getMessage());
         }
     });
 

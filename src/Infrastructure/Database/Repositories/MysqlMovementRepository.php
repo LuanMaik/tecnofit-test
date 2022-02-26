@@ -51,6 +51,7 @@ class MysqlMovementRepository implements MovementRepositoryInterface
                              JOIN user u ON(pr.user_id = u.id)
                              WHERE pr.movement_id = :movementId
                              GROUP BY pr.user_id
+                             ORDER BY `rank`, u.name 
                              LIMIT :offset, :limit");
         $stmt->bindValue(':movementId', $movementId, PDO::PARAM_INT);
         $stmt->bindValue(':limit', $pageSizeCheckNext, PDO::PARAM_INT);

@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-         bootstrap="vendor/autoload.php"
+         bootstrap="tests/bootstrap.php"
          colors="true"
 >
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
+        <testsuite name="Integration">
+            <directory suffix="Test.php">./tests/Integration</directory>
+        </testsuite>
+        <testsuite name="EndToEnd">
+            <directory suffix="Test.php">./tests/EndToEnd</directory>
         </testsuite>
     </testsuites>
 
@@ -27,8 +30,8 @@
         </report>
     </coverage>
     <php>
-        <server name="APP_ENV" value="TEST"/>
-        <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <server name="DB_DATABASE" value=":memory:"/> -->
+        <env name="MODE" value="TEST" force="true"/>
+        <env name="API_BASE_URL" value="http://localhost/" force="true"/>
+        <env name="DB_HOST" value="dbtest" force="true"/>
     </php>
 </phpunit>
