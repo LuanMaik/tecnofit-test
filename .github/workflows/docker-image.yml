@@ -25,6 +25,10 @@ jobs:
       - name: Build the docker-compose stack
         run: docker-compose up -d
 
+      - name: Install PHP dependencies
+        run: docker-compose exec composer install
+        shell: bash
+
       - name: Sleep for 15 seconds
         run: sleep 15s
         shell: bash
@@ -34,6 +38,7 @@ jobs:
 
       - name: Run test suite
         run: docker-compose exec api composer test
+        shell: bash
 
       - name: Build the Docker image
         run: docker build . --file docker/prod/Dockerfile --tag luanmaik/tecnofit-test:${{ github.head_ref }}-${{ github.sha }}
