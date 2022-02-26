@@ -5,11 +5,11 @@ use App\Domain\Repositories\MovementRepositoryInterface;
 use App\Domain\UseCases\Movement\RankUsersByMovementHandler;
 use App\Infrastructure\Database\Repositories\MysqlMovementRepository;
 
-return function(League\Container\Container $container) {
+return function(\App\WebAPI\App $app) {
     // Repositories
-    $container->add(MovementRepositoryInterface::class, MysqlMovementRepository::class);
+    $app->getContainer()->add(MovementRepositoryInterface::class, MysqlMovementRepository::class);
 
     // Use Cases
-    $container->add(RankUsersByMovementHandler::class, RankUsersByMovementHandler::class)
+    $app->getContainer()->add(RankUsersByMovementHandler::class, RankUsersByMovementHandler::class)
         ->addArgument(MovementRepositoryInterface::class);
 };

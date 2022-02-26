@@ -31,13 +31,29 @@ class App
     private function registerRoutes()
     {
         $routes = require __DIR__ . '/config/routes.php';
-        $routes($this->router, $this->container);
+        $routes($this);
     }
 
     private function registerContainerDefinitions()
     {
         $definitions = require __DIR__ . '/config/container-definitions.php';
-        $definitions($this->container);
+        $definitions($this);
+    }
+
+    /**
+     * @return StrategyAwareInterface
+     */
+    public function getRouter(): StrategyAwareInterface
+    {
+        return $this->router;
+    }
+
+    /**
+     * @return Container
+     */
+    public function getContainer(): Container
+    {
+        return $this->container;
     }
 
     public function run()

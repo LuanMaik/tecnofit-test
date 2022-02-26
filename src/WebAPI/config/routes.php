@@ -8,16 +8,16 @@ use App\WebAPI\ApiResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-return function(League\Route\Router $router, League\Container\Container $container) {
+return function(\App\WebAPI\App $app) {
 
-    $router->get('/movements/{id}/rank', function (ServerRequestInterface $request, array $args) use ($container): ResponseInterface {
+    $app->getRouter()->get('/movements/{id}/rank', function (ServerRequestInterface $request, array $args) use ($app): ResponseInterface {
         try {
             $queryParams = $request->getQueryParams();
 
             $page = $queryParams['page'] ?? 1;
             $pageSize = $queryParams['pageSize'] ?? 10;
 
-            $handler = $container->get(RankUsersByMovementHandler::class);
+            $handler = $app->getContainer()->get(RankUsersByMovementHandler::class);
             $query = new RankUsersByMovementQuery((int)$args['id'], (int)$page, (int)$pageSize);
             $rank = $handler->handler($query);
             return ApiResponse::success($rank);
