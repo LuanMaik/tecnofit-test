@@ -11,6 +11,10 @@
 - Docker / Docker Compose
 
 ---
+
+**Docker Image Repository:** https://hub.docker.com/repository/docker/luanmaik/tecnofit-test
+
+---
 ### Estrutura de pastas:
     .
     ├── public                    # Servida pelo webserver
