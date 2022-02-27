@@ -11,6 +11,7 @@ use League\Container\Container;
 use League\Route\Strategy\ApplicationStrategy;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use Psr\Http\Message\ServerRequestInterface;
 
 
 class App
@@ -56,11 +57,13 @@ class App
         return $this->container;
     }
 
-    public function run()
+    public function run(ServerRequestInterface $request = null)
     {
-        $request = ServerRequestFactory::fromGlobals(
-            $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
-        );
+        if($request === null) {
+            $request = ServerRequestFactory::fromGlobals(
+                $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
+            );
+        }
 
         try {
             $response = $this->router->dispatch($request);
@@ -71,6 +74,10 @@ class App
                 throw $ex;
             }
             $response = ApiResponse::serverError();
+        }
+
+        if(getenv('MODE') === 'TEST') {
+            return $response;
         }
 
         // send the response to the browser

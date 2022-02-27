@@ -17,10 +17,6 @@ class Database
      */
     public static function connect(): PDO
     {
-        if(self::$pdo !== null) {
-            return self::$pdo;
-        }
-
         $dsn = sprintf('mysql:host=%s;dbname=%s', getenv('DB_HOST'), getenv('DB_NAME'));
         $conn = new PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'));
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

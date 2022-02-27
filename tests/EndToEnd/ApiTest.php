@@ -8,7 +8,7 @@ class ApiTest extends EndToEndTestCase
     {
         // When
         $httpResponse = $this->httpGet("this-route-no-exists");
-        $jsonResponse = $httpResponse->getBody()->getContents();
+        $jsonResponse = (string) $httpResponse->getBody();
         $arrayResponse = json_decode($jsonResponse, true);
 
         // Then

@@ -21,8 +21,10 @@ return function(\App\WebAPI\App $app) {
             $query = new RankUsersByMovementQuery((int)$args['id'], (int)$page, (int)$pageSize);
             $rank = $handler->handler($query);
             return ApiResponse::success($rank);
-        } catch (MovementNotFoundException | InvalidArgumentException $ex) {
+        } catch (MovementNotFoundException $ex) {
             return ApiResponse::notFound($ex->getMessage());
+        } catch (InvalidArgumentException $ex) {
+            return ApiResponse::badRequest($ex->getMessage());
         }
     });
 

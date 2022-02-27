@@ -25,6 +25,9 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">vendor</directory>
+        </exclude>
         <report>
             <html outputDirectory="tests/test-coverage-report/" />
         </report>
