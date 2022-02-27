@@ -149,15 +149,6 @@ Com o uso dessas duas bibliotecas foi possível montar um Micro Framework própr
 
 A estrutura das pastas foi baseado em estruturas populares quando aplicado Clean Architecture.
 
-## Dificuldades encontradas
-Embora eu tenha criado vários testes _end-to-end_, usando Guzzle para realizar requisições HTTP para endpoins da API, 
-eu não consegui adicionar no relatório de cobertura de testes, sendo possível apenas para os testes unitário e de integração,
-pois o XDebug aparenta não ser capaz de realizar a análise de cobertura quando se trata de requisições externas. 
-
-Nos frameworks populares como o Laravel e Symfony é possível realizar essa cobertura de testes através dos testes de endpoint da API, 
-porém por debaixo dos panos não é realizado uma requisição http de verdade, utilizando meios mais avançados do framework para identificar
-a cobertura de código testado.
-
 ## Resolução do problema principal:
 A resolução é baseada nas funções [`Rank`](https://dev.mysql.com/doc/refman/8.0/en/window-function-descriptions.html), disponíveis a partir do Mysql 8.
 
